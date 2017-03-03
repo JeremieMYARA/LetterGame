@@ -1,21 +1,23 @@
 package com.esiea;
 import com.esiea.Joueur;
 
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Jeux partie = new Jeux();
-        Joueur J1 = new Joueur();
-        Joueur J2 = new Joueur();
-        Mot mot = new Mot();
 
         //String testTemp = null;
 
         //Menu (J1 appuyé entrer)
         partie.menu();
 
-        mot.scanMot();
+
+        //String motScanne = mot.scanMot();
+        //mot.verifierMot(motScanne);
+
 
 
 
