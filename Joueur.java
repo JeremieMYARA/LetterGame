@@ -1,6 +1,5 @@
 package com.esiea;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import java.util.ArrayList;
 
 import com.esiea.Mot.*;
@@ -36,7 +35,7 @@ public class Joueur {
 
         System.out.println("Banque du joueur: ");
         for(int i = 0; i < banqueMot.size(); i++) {
-            System.out.print(ANSI_RED+banqueMot.get(i)+ANSI_RESET);
+            System.out.print(" "+ANSI_RED+banqueMot.get(i)+ANSI_RESET);
         }
         System.out.println("\n");
     }
@@ -45,34 +44,34 @@ public class Joueur {
         int compte = 0;
         Boolean done = false;
         while (!done) {
-            for (int i = 0; i < banqueMot.size(); i++) {
+            for (int i = 0; i < banqueMot.size(); i++) {   //FOR EACH WORD IN ARRAYLIST
 
                 ArrayList clean = motDiviser;
                 String motActuelle = banqueMot.get(i);
-
-                ArrayList<Character> motActuelleDiviser = new ArrayList<Character>();
-
+                String cleanBanque = motActuelle;
+                ArrayList<Character> motActuelleDiviser = new ArrayList<Character>();  // DIVIDE STRING INTO ARRAY LIST
                 Mot.diviserMot(motActuelle, motActuelleDiviser);
-                for (int j = 0; j < motActuelleDiviser.size(); j++) {
-                    System.out.println("entering for 2");
-                    for (int k = 0; k < clean.size(); k++) {
-                        System.out.println("entering for 3");
-                        if (motActuelleDiviser.get(j) == clean.get(k)) {
-                            motDiviser.remove(j);
+
+                for (int j = 0; j < motActuelleDiviser.size(); j++) {         // FOR EVERY letter of divided string
+
+                    for (int k = 0; k < clean.size(); k++) {                 // for every letter in mot Saisis
+
+                        if (motActuelleDiviser.get(j) == clean.get(k)) {    // if same, then remove the letter
+                            clean.remove(j);
+                            motActuelleDiviser.remove(k);
                             compte++;
 
-                            if (compte == clean.size()) {
-                                done = true;
+                            if (compte == clean.size()) {                  // if you have removed all the letters then
+                                done = true;                               // all good
                             } else {
                                 motDiviser = clean;
                             }
                         }
                     }
                 }
-
             }
         }
         System.out.println("return value: "+motDiviser);
-        return motDiviser; //le reste de la comparaison entre motdiviser et mot de banque
+        return motDiviser;                                //le reste de la comparaison entre motdiviser et mot de banque
     }
 }

@@ -11,15 +11,14 @@ public class Mot {
 
 
     //scanner le mot, verifie qu'il est pas vide et action.
-    public String scanMot()
-    {
+    public String scanMot() throws IOException {
         System.out.println("Veuillez entrer un mot...");
         Scanner scanner = new Scanner( System.in ); //Creer le scanner
         String motEcrit = scanner.nextLine();   // Mot Ecrit = le mot ecrit par l'utilisateur, TempTestLetter
+
         try {
             if (motEcrit == "" || motEcrit == null) {
                 System.out.println("Aucun mot écrit. L'utilisateur passe son tour (c une tafiole)");
-                //TODO: SCANMOT CHANGER LE TOUR
             }
             else  {
                 setTempTestLetter(motEcrit);
@@ -29,12 +28,12 @@ public class Mot {
         catch(Exception e) {
             //log4j ERREUR
         }
+
         return TempTestLetter;
     }
 
 
     public void choisirMot () {
-    //TODO: ChoisirMot
     }
 
     public static ArrayList diviserMot(String motEcrit, ArrayList listeTemp) {
@@ -54,35 +53,37 @@ public class Mot {
 
 
     public boolean verifierMot(String motEcrit) throws IOException {
-		String chaine= "";
-		String fichier = "./src/com/ressources/dico.txt";
-		Boolean MotVerifier = false;
+        String chaine= "";
+        String fichier = "./src/com/ressources/dico.txt";
+        Boolean MotVerifier = false;
 
         InputStream ips = new FileInputStream(fichier);
         InputStreamReader ipsr = new InputStreamReader(ips);
         BufferedReader br = new BufferedReader(ipsr);
         String ligne;
-		//Lecture du fichier texte	
-		try {
+        //Lecture du fichier texte
+        try {
 
-			//Lire ligne par ligne et comparer.
-			do {
-				while ( (ligne=br.readLine())!= null) {
-					chaine = ligne;
-					if (chaine.equals(motEcrit)) {
-						MotVerifier = true; //quand cest bon, boolean dit que oui
-						System.out.println("Le mot "+ motEcrit + " est trouvé dans le dictionnaire.");
-					}
-				}
+            //Lire ligne par ligne et comparer.
+            do {
+                while ( (ligne=br.readLine())!= null) {
+                    chaine = ligne;
+                    if (chaine.equals(motEcrit)) {
+                        MotVerifier = true; //quand cest bon, boolean dit que oui
+                        System.out.println("Le mot "+ motEcrit + " est trouvé dans le dictionnaire.");
+                        return MotVerifier;
+                    }
+                }
 
-			} while (MotVerifier = false); //pas dans le dico
-		}
-		catch (Exception e){
-			System.out.println(e.toString());
-		}
-		br.close(); //fermer le fichier
-		return MotVerifier; //fin de fonction
-	}
+            } while (MotVerifier = false); //pas dans le dico
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+        System.out.println("Mot erroné, ");
+        br.close(); //fermer le fichier
+        return MotVerifier; //fin de fonction
+    }
 
     public String getTempTestLetter() {
         return TempTestLetter;

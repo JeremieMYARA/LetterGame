@@ -1,6 +1,5 @@
 package com.esiea;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,23 +23,22 @@ public class Jeux {
         System.out.println("Joueur 1, veuillez appuyer sur Entrée...");
         appuyezSurEntree();
 
-        System.out.println("Merci, vous êtes maintenant le Joueur 1. N'oublie pas, connard.\n");
+        System.out.println("Merci, vous êtes maintenant le Joueur 1.\n");
 
         Boolean Test = quiCommence(J);
         //nouveauTour(Test);
-
-        startGame(Test);
+         startGame(Test);
     }
 
     public void startGame(Boolean J) throws IOException {
         System.out.println("\nDebut du jeu...");
+        Boolean inGame = new Boolean(true);
+        while( inGame) {
+            nouveauTour(J);
+            J = !J;
 
-        nouveauTour(J);
-        //TODO: START_GAME where all the magic happens
+        }
     }
-
-
-
 
     public void appuyezSurEntree()
     {
@@ -51,9 +49,9 @@ public class Jeux {
     public Boolean quiCommence(Boolean J) {                           //comparer qui commence
         System.out.println("Determination du Premier joueur...");
         Boolean joueurChoisi = false;
-        String str1 = "La même lettre est tombé! On aurait dit Romeo & Juliette. Recalculating...";
-        String str2 = "Le Premier joueur commence! Promis il m'a pas donner de billet";
-        String str3 = "Le Deuxieme joueur commence! Ne soit pas jaloux.";
+        String str1 = "La même lettre est tombée! Quel hasard! Relance en cours...";
+        String str2 = "Le Premier joueur commence! Promis, il ne m'a pas donné de billet.";
+        String str3 = "Le Deuxieme joueur commence! Ne sois pas jaloux.";
         Character J1 = null;
         Character J2 = null;
 
@@ -64,7 +62,7 @@ public class Jeux {
 
             if (res == 0) {
                 System.out.println(str1);
-                //TODO: REMOVE LES LETTRES DU PC
+
 
             } else if (res > 0) {
                 System.out.println(ANSI_BLUE +str2+ ANSI_RESET);
@@ -80,8 +78,22 @@ public class Jeux {
         return J;
     }
 
+    public boolean nouveauTour(Boolean J) throws IOException {    //BOUCLE DE CHAQUE TOUR
+        int MotsJ1, MotsJ2;
+        MotsJ1 = J1.compterMotJoueur();
+        MotsJ2 = J2.compterMotJoueur();
 
-    public void nouveauTour(Boolean J) throws IOException {    //BOUCLE DE CHAQUE TOUR
+        if (MotsJ1 == 10) {
+            System.out.println(ANSI_RED +"Le Joueur 1 a Gagné!!"+ ANSI_RESET);
+            System.exit(1);
+            return false;
+
+        } else if (MotsJ2 == 10) {
+            System.out.println(ANSI_RED +"Le Joueur 2 a Gagné!!"+ ANSI_RESET);
+            System.exit(1);
+            return false;
+        }
+
         Boolean TourFinis = false;
         while (!TourFinis) {
 
@@ -95,38 +107,34 @@ public class Jeux {
 
 
             //DEBUT SCAN
-            String motScanne = mot.scanMot();
-            mot.verifierMot(motScanne);
-            ArrayList<String> motDiviser = new ArrayList<>();
+            String motScanne ;
+
+            Boolean checkit; //Tant qu'un mot n'est pas valide, essayer
+             do {
+                motScanne = mot.scanMot();
+                checkit = mot.verifierMot(motScanne);
+            } while (!checkit);
+
+            //System.out.println("Test");
+            // ArrayList<String> motDiviser = new ArrayList<>();
 
             //VERIFICATION PC BANQUE
-
-            mot.diviserMot(motScanne, motDiviser);
-
-            //mot.verifier banque
-            //if (J) J1.ajouterABanque();
-            //else J2.ajouterABanque();
-
-
-
-
-            J1.comparerBanque(motDiviser);
+            // mot.diviserMot(motScanne, motDiviser);
+            //J1.comparerBanque(motDiviser);
 
 
             TourFinis = true;
             System.out.println("Fin du Tour! \n");
         }
+        return true;
     }
 
 
     public void Printatour(Boolean J)
     {
-        if ( J == Boolean.TRUE) //donc tour J1
+        if (J) //donc tour J1
             System.out.println(ANSI_BLUE +"Tour du Joueur 1. On t'attend, Cowboy\n" + ANSI_RESET);
-        else System.out.println(ANSI_GREEN + "Tour du Joueur 2. Pecheur, va pecher!\n" + ANSI_RESET);
+        else System.out.println(ANSI_GREEN + "Tour du Joueur 2. Fais chauffer tes neurones!\n" + ANSI_RESET);
     }
-
-
-
 
 }

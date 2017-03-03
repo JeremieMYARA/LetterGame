@@ -7,7 +7,7 @@ import static com.esiea.Jeux.ANSI_RESET;
 
 public class PotCommun {
 
-    //TODO: VERIFIER_POT verifier avec le pot et coordonner avec la banque joueur
+
     private ArrayList<Character> potCommun = new ArrayList<>();
 
     public Character randomination(){
@@ -37,7 +37,7 @@ public class PotCommun {
         AddToPotCommun(L);
         Character M = randomination();
         AddToPotCommun(M);
-        System.out.println("Nouveau tour, nouvel lettre: "+ L + " et "+ M +". Bonne peche!");
+        System.out.println("Nouveau tour, nouvel lettre: "+ L + " et "+ M +". Bonne pioche!");
     }
 
     public void AddToPotCommun( Character L) {
@@ -76,7 +76,7 @@ public class PotCommun {
                     }
                 }
             }
-        System.out.println("Mot pas dans le PC, le mot n'est pas validé.");
+        System.out.println("Les lettres ne sont pas dans le Pot Commun, le mot n'est pas valide.");
 
         return false;
     }
